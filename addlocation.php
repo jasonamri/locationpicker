@@ -14,12 +14,14 @@ if ($conn->connect_error) {
 }
 
 $ip = str_replace(array(":","."), array("",""), $_POST["ip"]);
+$ip = mysqli_real_escape_string($conn, $ip);
 $lat = $_POST["lat"];
+$lat = mysqli_real_escape_string($conn, $lat);
 $lng = $_POST["lng"];
+$lng = mysqli_real_escape_string($conn, $lng);
 
-$sql = "INSERT INTO locationpicker (ipaddress, lat, lng) VALUES(".$ip.", ".$lat.", ".$lng.") ON DUPLICATE KEY UPDATE lat=".$lat.", lng=".$lng;
+$sql = "INSERT INTO locationpicker (ipaddress, lat, lng) VALUES('".$ip."', ".$lat.", ".$lng.") ON DUPLICATE KEY UPDATE lat=".$lat.", lng=".$lng;
 
-$sql = mysqli_real_escape_string($conn, $sql);
 
 if ($conn->query($sql) === TRUE) {
     http_response_code(200);
