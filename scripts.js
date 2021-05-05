@@ -74,7 +74,7 @@ confirmBtn.onclick = async function () {
   //addressTxt.innerHTML = 'The chosen location is ' + location.lat + ',' + location.lng;
   const rawRes = await fetch("https://www.cloudflare.com/cdn-cgi/trace");
   response = await rawRes.text()
-  ipAddress = response.split('\n')[2].substring(3).split('.').join("");
+  ipAddress = response.split('\n')[2].substring(3)
 
   //randomize lat and lng to within 500 meters
   lat = location.lat;

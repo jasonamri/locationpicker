@@ -13,11 +13,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$ip = $_POST["ip"];
+$ip = str_replace(array(":","."), array("",""), $_POST["ip"]);
 $lat = $_POST["lat"];
 $lng = $_POST["lng"];
 
 $sql = "INSERT INTO locationpicker (ipaddress, lat, lng) VALUES(".$ip.", ".$lat.", ".$lng.") ON DUPLICATE KEY UPDATE lat=".$lat.", lng=".$lng;
+
+$sql = mysqli_real_escape_string($conn, $sql);
 
 if ($conn->query($sql) === TRUE) {
     http_response_code(200);
